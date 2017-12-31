@@ -50,6 +50,9 @@ struct softmax_gpu : typed_primitive_gpu_impl<softmax>
             // Flatten fused with softmax
             input = input.FlattenFeatureAndSpatials();
             output = output.FlattenFeatureAndSpatials();
+#if __cplusplus >= 201402L
+            [[ fallthrough ]];
+#endif
         case softmax::normalize_f:
             sm.dim = kernel_selector::softmax_dim::FEATURE;
             break;

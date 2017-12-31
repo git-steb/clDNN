@@ -94,7 +94,8 @@ namespace {
         if (config.host_out_of_order)
         {
             auto queue_properties = dev.getInfo<CL_DEVICE_QUEUE_PROPERTIES>();
-            using cmp_t = std::common_type_t<decltype(queue_properties), std::underlying_type_t<cl::QueueProperties>>;
+            //using cmp_t = std::common_type_t<decltype(queue_properties), std::underlying_type_t<cl::QueueProperties>>;
+            using cmp_t = cl_int;
             if (!(static_cast<cmp_t>(queue_properties) & static_cast<cmp_t>(cl::QueueProperties::OutOfOrder)))
             {
                 reasons.push_back(dev_name + ": missing out of order support");

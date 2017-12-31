@@ -120,6 +120,9 @@ namespace KernelSelector
                 return *this;
             case Tensor::fyxb:
                 targetLayout = Tensor::fb;
+#if __cplusplus >= 201402L
+                [[ fallthrough ]];
+#endif
             case Tensor::bfyx:
                 if (f.pitch == y.v*x.v*x.pitch)                                         // no padding in X/Y axis
                 {
@@ -129,6 +132,9 @@ namespace KernelSelector
                 throw std::runtime_error("Unsupported - cannot flatten with padding");
             case Tensor::yxfb:
                 targetLayout = Tensor::fb;
+#if __cplusplus >= 201402L
+                [[ fallthrough ]];
+#endif
             case Tensor::byxf:
                 if ((x.pitch == f.pitch && y.pitch == x.v*x.pitch) ||                   // YX - no Features (val/pitch)
                     (y.v == 1 && x.v == 1 && x.pitch == f.pitch && y.pitch == f.pitch)) // Feature only

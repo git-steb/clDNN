@@ -43,6 +43,9 @@ bool is_batch_after_spatial(const std::string order)
             batch_found = true;
             if (spatial_found)
                 return true;
+#if __cplusplus >= 201402L
+            [[ fallthrough ]];
+#endif
         case 'x':
         case 'y':
         case 'z':
